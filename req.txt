@@ -1,0 +1,6 @@
+flask
+aiogram
+requests
+Pillow
+vk_api==11.9.9
+instaloader==4.9.6
