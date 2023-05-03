@@ -1,11 +1,11 @@
 import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll
-from functions.functions import get_discount_code
+from functions.functions import get_discount_code, key_dict
 
 GROUP_ID = 12345  # Replace with your group ID
 
 # Connect to VK API
-vk_session = vk_api.VkApi(token="YOUR_TOKEN_HERE")
+vk_session = vk_api.VkApi(token=key_dict['VKID'])
 longpoll = VkBotLongPoll(vk_session, GROUP_ID)
 vk = vk_session.get_api()
 

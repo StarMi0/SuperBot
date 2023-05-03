@@ -11,4 +11,4 @@ async def on_startup(_):
 bot.register_handler_client(dp)
 
 if __name__ == "__main__":
-    executor.start_polling(dp)
+    executor.start_polling(dp, skip_updates=False, on_startup=on_startup)
