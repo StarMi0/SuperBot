@@ -1,8 +1,8 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, ReplyKeyboardRemove
 
-coupon = KeyboardButton('/coupon')
+coupon = KeyboardButton('Хочу купон')
 
 
-kb_client = ReplyKeyboardMarkup()
+kb_client = ReplyKeyboardMarkup(resize_keyboard=True)
 
 kb_client.add(coupon)

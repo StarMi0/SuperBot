@@ -14,8 +14,10 @@ def check_code(user_id: str, social: str) -> bool:
 
 
 def add_to_db(user_id: str, social: str, img_url: str):
+    print(f'add {social}, {user_id}, {img_url}')
     cursor.execute("INSERT INTO USERS (social, user_id, url) VALUES (?, ?, ?)",
                    (social, user_id, img_url))
+    conn.commit()
 
 
 def image_save(image: Image, user_id: str, social: str) -> str:
