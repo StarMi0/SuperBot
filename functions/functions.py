@@ -2,7 +2,6 @@ import requests, sqlite3
 import io
 from PIL import Image
 
-
 conn = sqlite3.connect('code.db')
 cursor = conn.cursor()
 
@@ -14,7 +13,6 @@ def check_code(user_id: str, social: str) -> bool:
 
 
 def add_to_db(user_id: str, social: str, img_url: str):
-    print(f'add {social}, {user_id}, {img_url}')
     cursor.execute("INSERT INTO USERS (social, user_id, url) VALUES (?, ?, ?)",
                    (social, user_id, img_url))
     conn.commit()
@@ -48,7 +46,7 @@ def url_parce(test: bool, social: str) -> str:
     return url
 
 
-def get_discount_code(social: str, user_id: str):
+def get_discount_code(social: str, user_id: str, force=False):
     """
     Забирает штрихкод из базы данных, сохраняет его как изображение, вставляет его в шаблон, возвращает готовое
     изображение с подарочным штрихкодом.
@@ -56,7 +54,7 @@ def get_discount_code(social: str, user_id: str):
     :param user_id:
     :return:
     """
-    if not check_code(user_id, social):
+    if not check_code(user_id, social) or force is True:
         login = key_dict['BD_login']
         password = key_dict['BD_pass']
         img_path = 'media'
