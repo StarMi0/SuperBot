@@ -17,7 +17,7 @@ def run_vk_bot(longpoll, vk, upload):
                     event.object['message']['from_id'] and \
                     event.object['message']['text']:
 
-                if event.object['message']['text'] == 'Хочу купон':
+                if event.object['message']['text'].lower() == 'хочу купон':
                     # Check if user is subscribed to the group
 
                     is_subscribed = vk.groups.isMember(
@@ -56,7 +56,9 @@ def run_vk_bot(longpoll, vk, upload):
                             random_id=random.randint(0, 100)
                         )
                 else:
-                    text = f"Не понял, что вы хотели сказать: {event.object['message']['text']}"
+                    text = f"Не понял, что вы хотели сказать: {event.object['message']['text']}\n" \
+                           f"Если вы хотите получить купон, вы должны подписаться на группу {key_dict['url_vk']}\n" \
+                           f"И написать мне сообщение 'Хочу купон'☺"
 
                     vk.messages.send(
                         user_id=event.object['message']['from_id'],
