@@ -111,14 +111,28 @@ def insert_image(img, insert_img, x, y):
 
 def txt_dict(filename):
     d = dict()
-    with open(filename) as f:
-        for line in f:
-            (key, val) = line.split()
-            d[key] = val
+    try:
+        with open(filename) as f:
+            for line in f:
+                (key, val) = line.split()
+                d[key] = val
+    except:
+        print("../" + filename)
+        with open("../" + filename) as f:
+            for line in f:
+                (key, val) = line.split()
+                d[key] = val
     return d
 
 
 key_dict = txt_dict('keys.txt')
 
 if __name__ == "__main__":
-    pass
+    cursor.execute("""CREATE TABLE USERS (
+            id INTEGER PRIMARY KEY,
+            social TEXT,
+            user_id INTEGER,
+            url TEXT
+            )""")
+    conn.commit()
+    conn.close()
