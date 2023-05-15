@@ -11,6 +11,11 @@ upload = vk_api.VkUpload(vk)
 longpoll = VkBotLongPoll(vk_session, key_dict['VK_GROUP_ID'])
 
 
+async def run_vk():
+    run_vk_bot(longpoll, vk, upload)
+    print("VK bot is online!!!")
+
+
 if __name__ == "__main__":
     run_vk_bot(longpoll, vk, upload)
 
