@@ -1,9 +1,27 @@
+import os
+
 import requests, sqlite3
 import io
 from PIL import Image
 
+
+if not os.path.exists('code.db'):
+    new_db = open("code.db", "w")
+    new_db.close()
 conn = sqlite3.connect('code.db')
 cursor = conn.cursor()
+
+cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='USERS'")
+if cursor.fetchone():
+    print("Table exists")
+else:
+    cursor.execute("""CREATE TABLE USERS (
+                id INTEGER PRIMARY KEY,
+                social TEXT,
+                user_id INTEGER,
+                url TEXT
+                )""")
+    conn.commit()
 
 
 def check_code(user_id: str, social: str) -> bool:
@@ -128,11 +146,4 @@ def txt_dict(filename):
 key_dict = txt_dict('keys.txt')
 
 if __name__ == "__main__":
-    cursor.execute("""CREATE TABLE USERS (
-            id INTEGER PRIMARY KEY,
-            social TEXT,
-            user_id INTEGER,
-            url TEXT
-            )""")
-    conn.commit()
-    conn.close()
+    pass
