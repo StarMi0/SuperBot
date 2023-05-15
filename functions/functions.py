@@ -12,7 +12,7 @@ def check_code(user_id: str, social: str) -> bool:
     return bool(results)
 
 
-def add_to_db(user_id: str, social: str, img_url: str):
+def add_to_db(social: str, user_id: str, img_url: str):
     cursor.execute("INSERT INTO USERS (social, user_id, url) VALUES (?, ?, ?)",
                    (social, user_id, img_url))
     conn.commit()
