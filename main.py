@@ -15,11 +15,11 @@ async def run_TG():
 
 
 ioloop = asyncio.get_event_loop()
-task = [
-    ioloop.create_task(run_TG()),
+tasks = [
+    ioloop.create_task(executor.start_polling(dp, skip_updates=False, on_startup=on_startup)),
     ioloop.create_task(run_vk())
 ]
 
 if __name__ == "__main__":
-    ioloop.run_until_complete(asyncio.wait(task))
+    ioloop.run_until_complete(asyncio.wait(tasks))
 

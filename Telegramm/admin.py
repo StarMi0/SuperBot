@@ -26,7 +26,6 @@ sallers = read_file_into_list('Telegramm/sallers.txt')
 
 
 class AdminStateGroup(StatesGroup):
-
     social = State()
     user_id = State()
     final = State()
@@ -57,8 +56,6 @@ async def final(message: types.Message, state: FSMContext):
     await AdminStateGroup.final.set()
 
 
-
-
 async def save_or_get(message: types.Message, state: FSMContext):
     data = await state.get_data()
     social = data.get("social")
@@ -79,6 +76,7 @@ async def save_or_get(message: types.Message, state: FSMContext):
                                f"Добавлять записи может только администратор,\n"
                                f"Получать код повторно может только продавец.")
     await state.finish()
+
 
 async def status(message: types.Message):
     if str(message.from_user.id) in admins:
