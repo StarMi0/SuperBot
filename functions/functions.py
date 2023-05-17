@@ -64,7 +64,7 @@ def url_parce(test: bool, social: str) -> str:
     return url
 
 
-def get_discount_code(social: str, user_id: str, force=False):
+def get_discount_code(social: str, user_id: str):
     """
     Забирает штрихкод из базы данных, сохраняет его как изображение, вставляет его в шаблон, возвращает готовое
     изображение с подарочным штрихкодом.
@@ -72,7 +72,7 @@ def get_discount_code(social: str, user_id: str, force=False):
     :param user_id:
     :return:
     """
-    if not check_code(user_id, social) or force is True:
+    if not check_code(user_id, social):
         login = key_dict['BD_login']
         password = key_dict['BD_pass']
         img_path = 'media'

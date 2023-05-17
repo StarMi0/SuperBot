@@ -1,11 +1,10 @@
 from aiogram import executor
-from Telegramm import bot, admin
+from Telegramm import bot
 from create_bot_tg import on_startup, dp
 from create_bot_vk import run_vk
 import asyncio
 
 
-admin.register_handler_admin(dp)
 bot.register_handler_client(dp)
 
 

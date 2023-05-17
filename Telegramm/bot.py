@@ -2,7 +2,6 @@ from aiogram import types, Dispatcher
 from functions.functions import get_discount_code, key_dict
 from create_bot_tg import dp, bot
 from .keyboard import kb_client
-from .admin import admins, sallers
 import re
 
 
@@ -25,15 +24,14 @@ async def check_client(message: types.Message):
 
 
 async def command_start(message: types.Message):
-    # if message.from_user.id not in admins and message.from_user.id not in sallers:
-    if not str(message.from_user.id) in admins and not str(message.from_user.id) in sallers:
-        try:
-            await bot.send_message(message.from_user.id, f"Если вы еще не получали скидочный купон, "
-                                                         f"нажмите 'Хочу купон' или введите сообщение 'Хочу купон'",
-                                   reply_markup=kb_client)
-            await message.delete()
-        except:
-            await message.reply(f'Ошибка соединения...')
+
+    try:
+        await bot.send_message(message.from_user.id, f"Если вы еще не получали скидочный купон, "
+                                                     f"нажмите 'Хочу купон' или введите сообщение 'Хочу купон'",
+                               reply_markup=kb_client)
+        await message.delete()
+    except:
+        await message.reply(f'Ошибка соединения...')
 
 
 def register_handler_client(dp: Dispatcher):
