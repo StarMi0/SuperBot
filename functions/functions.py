@@ -24,7 +24,7 @@ else:
     conn.commit()
 
 
-def check_code(user_id: str, social: str) -> bool:
+def check_code(social: str, user_id: str) -> bool:
     cursor.execute("SELECT * FROM USERS WHERE social = ? AND user_id = ?", (social, user_id))
     results = cursor.fetchall()
     return bool(results)
@@ -72,7 +72,7 @@ def get_discount_code(social: str, user_id: str):
     :param user_id:
     :return:
     """
-    if not check_code(user_id, social):
+    if not check_code(social, user_id):
         login = key_dict['BD_login']
         password = key_dict['BD_pass']
         img_path = 'media'
@@ -84,7 +84,7 @@ def get_discount_code(social: str, user_id: str):
             insert_code = Image.open(io.BytesIO(image_bytes))
             new_img = insert_image(image, insert_code, x=505, y=130)
             new_img.save(f"{img_path}/code/{social}_{user_id}.jpg")
-            add_to_db(user_id, social, f"{social}_{user_id}.jpg")
+            add_to_db(social, user_id, f"{social}_{user_id}.jpg")
             return f"{img_path}/code/{social}_{user_id}.jpg"
         else:
             return None
