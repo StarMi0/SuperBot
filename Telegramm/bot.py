@@ -41,7 +41,7 @@ async def callback_client(callback_query: types.CallbackQuery):
 async def command_start(message: types.Message):
 
     user_name = message.from_user.full_name
-    print(user_name)
+
     try:
         await bot.send_message(message.from_user.id, f"Привет, {user_name}!\n"
                                                      f"Я бот Наша Обувь.\n"

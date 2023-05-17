@@ -13,7 +13,7 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 
 async def on_startup(_):
-    asyncio.create_task(run_vk())
+    # asyncio.create_task(run_vk())
     print('Telegram bot is online')
 
 
