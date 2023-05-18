@@ -16,7 +16,6 @@ tasks = [
 
 
 if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=False, on_startup=on_startup)
     ioloop.run_until_complete(asyncio.wait(tasks))
-    # ioloop.close()
-
+    ioloop.close()
+    executor.start_polling(dp, skip_updates=False, on_startup=on_startup)
