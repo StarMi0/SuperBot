@@ -1,3 +1,5 @@
+import os.path
+
 from aiogram import types, Dispatcher
 from functions.functions import get_discount_code, key_dict
 from create_bot_tg import dp, bot
@@ -47,6 +49,7 @@ async def command_start(message: types.Message):
                                                      f"Я бот Наша Обувь.\n"
                                                      f"Чтобы получить купон 500 руб, нажми\n"
                                                      f"КУПОН",
+                               photo=os.path.join('media', 'new_message.jpg'),
                                reply_markup=kb_client)
         await message.delete()
     except ValueError as err:
