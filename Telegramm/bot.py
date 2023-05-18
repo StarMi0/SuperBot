@@ -41,16 +41,17 @@ async def callback_client(callback_query: types.CallbackQuery):
 
 
 async def command_start(message: types.Message):
-
     user_name = message.from_user.full_name
 
     try:
-        await bot.send_message(message.from_user.id, f"Привет, {user_name}!\n"
-                                                     f"Я бот Наша Обувь.\n"
-                                                     f"Чтобы получить купон 500 руб, нажми\n"
-                                                     f"КУПОН",
-                               photo=os.path.join('media', 'new_message.jpg'),
-                               reply_markup=kb_client)
+        with open (os.path.join('media', 'new_message.jpg'), 'rb') as f:
+            greeting_photo = f.read()
+        await bot.send_photo(message.from_user.id, caption=f"Привет, {user_name}!\n"
+                                                           f"Я бот Наша Обувь.\n"
+                                                           f"Чтобы получить купон 500 руб, нажми\n"
+                                                           f"КУПОН",
+                             photo=greeting_photo,
+                             reply_markup=kb_client)
         await message.delete()
     except ValueError as err:
         dict_response = {

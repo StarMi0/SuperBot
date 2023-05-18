@@ -5,6 +5,9 @@ from functions.functions import key_dict
 from VK.vk import run_vk_bot
 
 
+
+
+
 # Connect to VK API
 
 
@@ -20,6 +23,7 @@ async def run_vk():
             print("VK bot is online!!!")
         except Exception:
             pass
+
 
 
 if __name__ == "__main__":
