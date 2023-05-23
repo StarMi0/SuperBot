@@ -29,36 +29,28 @@ def run_vk_bot(longpoll, vk, upload):
                         # Get discount code link
                         link = get_discount_code('vk', event.object['message']['from_id'])
                         if link:
-                            # Open image and send it to the user
-
-                            image = open(link, 'rb')
-                            upload_image = upload.photo_messages(photos=image,
-                                                                 peer_id=event.object['message']['from_id'])[0]
-                            pic = f"photo{upload_image['owner_id']}_{upload_image['id']}"
                             vk.messages.send(
                                 user_id=event.object['message']['from_id'],
-                                attachment=pic,
+                                message="Для продления работы бота, оформите подписку",
                                 random_id=random.randint(0, 100)
                             )
                         else:
                             # Send message about existing active coupon
                             vk.messages.send(
                                 user_id=event.object['message']['from_id'],
-                                message="У Вас уже есть активный купон.",
+                                message="Для продления работы бота, оформите подписку",
                                 random_id=random.randint(0, 100)
                             )
                     else:
                         # Send message about subscription
                         vk.messages.send(
                             user_id=event.object['message']['from_id'],
-                            message=f'Подпишитесь на наш канал: {key_dict["url_vk"]}\n,'
-                                    f'чтобы получить купон и повторите попытку.',
+                            message=f'Для продления работы бота, оформите подписку',
                             random_id=random.randint(0, 100)
                         )
                 else:
-                    text = f"Не понял, что вы хотели сказать: {event.object['message']['text']}\n" \
-                           f"Если вы хотите получить купон, вы должны подписаться на группу {key_dict['url_vk']}\n" \
-                           f"И написать мне сообщение 'КУПОН'☺"
+                    # pass # Этот фрагмент кода и до except можно убрать до появления у них необходимо
+                    text = f"Для продления работы бота, оформите подписку"
 
                     vk.messages.send(
                         user_id=event.object['message']['from_id'],

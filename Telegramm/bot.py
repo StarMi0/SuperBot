@@ -10,17 +10,12 @@ async def check_client(message: types.Message):
     user_id = message.from_user.id  # ID пользователя который запустил хэндлер
 
     if False:
-        await bot.send_message(message.chat.id, f'Подпишитесь на наш канал: {key_dict["url_tg"]}\n,'
-                                                f'чтобы получить купон и повторите попытку.')
+        await bot.send_message(message.chat.id, f'Для продления работы бота, оформите подписку')
         await message.delete()
     else:
         # Генерация и присылка купона:
-        cupon_path = get_discount_code('tg', user_id)
-        if cupon_path:
-            photo = open(cupon_path, 'rb')
-            await bot.send_photo(message.chat.id, photo=photo)
-        else:
-            await bot.send_message(message.chat.id, "У Вас уже есть активный купон.")
+
+        await bot.send_message(message.chat.id, "Для продления работы бота, оформите подписку")
         await message.delete()
 
 
@@ -28,16 +23,11 @@ async def callback_client(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id  # ID пользователя который запустил хэндлер
 
     if False:
-        await bot.send_message(callback_query.from_user.id, f'Подпишитесь на наш канал: {key_dict["url_tg"]}\n,'
-                                                            f'чтобы получить купон и повторите попытку.')
+        await bot.send_message(callback_query.from_user.id, f'Для продления работы бота, оформите подписку')
     else:
         # Генерация и присылка купона:
-        cupon_path = get_discount_code('tg', user_id)
-        if cupon_path:
-            photo = open(cupon_path, 'rb')
-            await bot.send_photo(callback_query.from_user.id, photo=photo)
-        else:
-            await bot.send_message(callback_query.from_user.id, "У Вас уже есть активный купон.")
+
+        await bot.send_message(callback_query.from_user.id, "Для продления работы бота, оформите подписку")
 
 
 async def command_start(message: types.Message):
@@ -46,10 +36,7 @@ async def command_start(message: types.Message):
     try:
         with open (os.path.join('media', 'new_message.jpg'), 'rb') as f:
             greeting_photo = f.read()
-        await bot.send_photo(message.from_user.id, caption=f"Привет, {user_name}!\n"
-                                                           f"Я бот Наша Обувь.\n"
-                                                           f"Чтобы получить купон 500 руб, нажми\n"
-                                                           f"КУПОН",
+        await bot.send_photo(message.from_user.id, caption=f"Для продления работы бота, оформите подписку",
                              photo=greeting_photo,
                              reply_markup=kb_client)
         await message.delete()
