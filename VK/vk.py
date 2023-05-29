@@ -56,6 +56,7 @@ def run_vk_bot(longpoll, vk, upload):
                             random_id=random.randint(0, 100)
                         )
                 else:
+                    # pass # Этот фрагмент кода и до except можно убрать до появления у них необходимо
                     text = f"Не понял, что вы хотели сказать: {event.object['message']['text']}\n" \
                            f"Если вы хотите получить купон, вы должны подписаться на группу {key_dict['url_vk']}\n" \
                            f"И написать мне сообщение 'КУПОН'☺"
