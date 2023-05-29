@@ -67,7 +67,7 @@ def url_parce(test: bool, social: str) -> str:
 def get_discount_code(social: str, user_id: str):
     """
     Забирает штрихкод из базы данных, сохраняет его как изображение, вставляет его в шаблон, возвращает готовое
-    изображение с подарочным штрихкодом.
+    изображение с подарочным штрихкодом..
     :param social: vk, in, tg
     :param user_id:
     :return:
