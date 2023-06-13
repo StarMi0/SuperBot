@@ -47,7 +47,7 @@ async def command_start(message: types.Message):
         with open (os.path.join('media', 'new_message.jpg'), 'rb') as f:
             greeting_photo = f.read()
         await bot.send_photo(message.from_user.id, caption=f"Привет, {user_name}!\n"
-                                                           f"Я бот Наша Обувь. \n"
+                                                           f"Я бот 'Наша Обувь'. \n"
                                                            f"Чтобы получить купон 500 руб, нажми\n"
                                                            f"КУПОН",
                              photo=greeting_photo,
