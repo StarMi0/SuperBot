@@ -25,11 +25,15 @@ else:
 
 
 def check_code(social: str, user_id: str) -> bool:
-    pass
+    cursor.execute("SELECT * FROM USERS WHERE social = ? AND user_id = ?", (social, user_id))
+    results = cursor.fetchall()
+    return bool(results)
 
 
 def add_to_db(social: str, user_id: str, img_url: str):
-    pass
+    cursor.execute("INSERT INTO USERS (social, user_id, url) VALUES (?, ?, ?)",
+                   (social, user_id, img_url))
+    conn.commit()
 
 
 def image_save(image: Image, user_id: str, social: str) -> str:
@@ -40,7 +44,8 @@ def image_save(image: Image, user_id: str, social: str) -> str:
     :param social:
     :return: path like object
     """
-    pass
+    with open(f"{user_id}_{social}.jpg", "wb") as f:
+        f.write(image)
 
 
 def url_parce(test: bool, social: str) -> str:
@@ -50,26 +55,76 @@ def url_parce(test: bool, social: str) -> str:
     :param social: vk, in, tg
     :return: string url type
     """
-    pass
+    url_to_db = 'http://31.186.145.106:55080/'
+    discount = '/hs/chatbot/getdiscountcode/'
+    if test:
+        url = url_to_db + 'test' + discount + social
+    else:
+        url = url_to_db + 'retail' + discount + social
+    return url
 
 
 def get_discount_code(social: str, user_id: str):
     """
     Забирает штрихкод из базы данных, сохраняет его как изображение, вставляет его в шаблон, возвращает готовое
-    изображение с подарочным штрихкодом..
+    изображение с подарочным штрихкодом.
     :param social: vk, in, tg
     :param user_id:
     :return:
     """
-    pass
+    if not check_code(social, user_id):
+        login = key_dict['BD_login']
+        password = key_dict['BD_pass']
+        img_path = 'media'
+        url = url_parce(True, social)
+        r = requests.get(url, auth=(login, password))
+        image = Image.open(f'{img_path}/{social}.jpg')
+        if r.status_code == 200:
+            image_bytes = r.content
+            insert_code = Image.open(io.BytesIO(image_bytes))
+            new_img = insert_image(image, insert_code, x=505, y=130)
+            new_img.save(f"{img_path}/code/{social}_{user_id}.jpg")
+            add_to_db(social, user_id, f"{social}_{user_id}.jpg")
+            return f"{img_path}/code/{social}_{user_id}.jpg"
+        else:
+            return None
+    else:
+        return False
 
 
 def get_square_edges(img):
-    pass
+    width, height = img.size
+
+    left_edge = 0
+    right_edge = 0
+    top_edge = 0
+    bottom_edge = 0
+
+    for x in range(width):
+        for y in range(height):
+            px = img.getpixel((x, y))
+            if px == (255, 255, 255):
+                if x < left_edge or left_edge == 0:
+                    left_edge = x
+                if x > right_edge:
+                    right_edge = x
+                if y < top_edge or top_edge == 0:
+                    top_edge = y
+                if y > bottom_edge:
+                    bottom_edge = y
+
+    return (left_edge, top_edge, right_edge, bottom_edge)
 
 
 def insert_image(img, insert_img, x, y):
-    pass
+    insert_img = insert_img.resize((370, 221), Image.Resampling.NEAREST)
+    insert_width, insert_height = insert_img.size
+
+    x_offset = int(x - (insert_width / 2))
+    y_offset = int(y - (insert_height / 2))
+    img.paste(insert_img, (x_offset, y_offset))
+
+    return img
 
 
 def txt_dict(filename):
